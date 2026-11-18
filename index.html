@@ -21,7 +21,29 @@ button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 56
 .scoreline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}.chip{padding:8px 12px;border:1px solid #343944;border-radius:999px;background:#0E1014}
 .passport{margin-top:22px;padding:20px;border-radius:16px;background:#0D1514;border:1px solid var(--green)}.status{font-size:38px;font-weight:900}.metric{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid #2A2F35}
 .footer{margin-top:34px;padding-top:18px;border-top:1px solid #242830;color:#898F98;font-size:12px}
-@media(max-width:640px){.brand{align-items:flex-start}.lang{flex-direction:column}.fields,.namebox{grid-template-columns:1fr}.q{font-size:25px}}
+@media(max-width:640px){
+    body{overflow-x:hidden}
+    .wrap{width:100%;max-width:100%;padding:16px 12px 36px}
+    .brand{align-items:flex-start;gap:10px;flex-wrap:wrap}
+    .mark{width:52px;height:52px}
+    .brand h1{font-size:26px}
+    .brand p{font-size:12px;max-width:230px}
+    .lang{width:100%;margin-inline-start:0;flex-direction:row}
+    .lang button{flex:1;min-height:44px}
+    .hero{padding-top:28px}
+    .hero h2{font-size:36px;line-height:1.15}
+    .hero p{font-size:16px}
+    .card{padding:16px;border-radius:14px}
+    .fields,.namebox{grid-template-columns:1fr}
+    .field{min-height:74px;width:100%;overflow-wrap:anywhere}
+    .field strong{font-size:13px;overflow-wrap:anywhere}
+    .q{font-size:24px;line-height:1.35}
+    .top{align-items:flex-start}
+    .actions{display:block}
+    .actions .primary,.actions .secondary,.namebox .primary{width:100%}
+    .metric{align-items:flex-start;flex-wrap:wrap}
+    .status{font-size:32px}
+  }
 </style>
 </head>
 <body>
@@ -64,7 +86,7 @@ button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 56
 <div id="finalTitle" class="q green"></div>
 <div id="finalSummary" class="sub"></div>
 <div class="passport">
-<div id="passportLabel" class="kicker"></div><div class="status green">VERIFIED</div>
+<div id="passportLabel" class="kicker"></div><div id="passportStatus" class="status green">VERIFIED</div>
 <div class="metric"><span id="nameMetric"></span><strong id="finalName"></strong></div>
 <div class="metric"><span id="scoreMetric"></span><strong id="finalScore" class="green"></strong></div>
 <div class="metric"><span id="correctMetric"></span><strong id="finalCorrect"></strong></div>
@@ -85,7 +107,7 @@ name:"اكتب اسمك",start:"ابدأ التحدي",round:"الجولة",of:"
 ok:"إجابة صحيحة ✓",ok2:"اخترت فقط البيانات الضرورية.",bad:"ليست الإجابة المثالية.",wrong:"اخترت بيانات غير مطلوبة: ",missing:"ونسيت بيانات مطلوبة: ",
 done:"انتهى التحدي",perfect:"ممتاز! طبّقت مبدأ أقل صلاحية بنجاح.",normal:"الآن تعرف الفرق بين الحاجة والصلاحية.",
 summary:"Trustera تتحقق من أن الطرف الثالث يحصل فقط على البيانات المصرح بها، وتكشف أي فرق بين السياسة والسلوك الفعلي.",
-passport:"جواز ثقة التكامل",nameM:"اسم اللاعب",scoreM:"النتيجة",correctM:"الجولات الصحيحة",again:"العب مرة أخرى",
+passport:"جواز ثقة التكامل",verified:"تم التحقق",failed:"فشل التحقق",nameM:"اسم اللاعب",scoreM:"النتيجة",correctM:"الجولات الصحيحة",again:"العب مرة أخرى",
 footer:"Trustera · SAIF 2026 · سيناريوهات تجريبية للتوعية فقط",
 rounds:[
 {t:"شريك التوصيل",q:"ما البيانات التي يحتاجها شريك التوصيل؟",c:"يحتاج فقط لإيصال الطلب المخصص له وتحديث حالته.",o:[["order_id","رقم الطلب",1],["delivery_address","عنوان التوصيل",1],["delivery_status","حالة التوصيل",1],["customer_phone","رقم جوال العميل",0],["national_id","الهوية الوطنية",0],["private_record","سجل خاص",0]]},
@@ -99,7 +121,7 @@ name:"Enter your name",start:"Start challenge",round:"Round",of:"of",submit:"Sub
 ok:"Correct ✓",ok2:"You selected only the necessary data.",bad:"Not quite.",wrong:"You selected unnecessary data: ",missing:"You missed required data: ",
 done:"Challenge complete",perfect:"Excellent! You applied least privilege correctly.",normal:"Now you know the difference between need and permission.",
 summary:"Trustera verifies that a third party receives only authorized data and exposes any gap between policy and actual behavior.",
-passport:"Integration Passport",nameM:"Player",scoreM:"Score",correctM:"Correct rounds",again:"Play again",
+passport:"Integration Passport",verified:"VERIFIED",failed:"FAILED",nameM:"Player",scoreM:"Score",correctM:"Correct rounds",again:"Play again",
 footer:"Trustera · SAIF 2026 · Synthetic awareness scenarios only",
 rounds:[
 {t:"Delivery partner",q:"What data should the delivery partner access?",c:"It only needs enough information to deliver the assigned order and update its status.",o:[["order_id","Order ID",1],["delivery_address","Delivery address",1],["delivery_status","Delivery status",1],["customer_phone","Customer phone",0],["national_id","National ID",0],["private_record","Private record",0]]},
@@ -112,7 +134,7 @@ function applyLang(l){lang=l;const c=copy[l];document.documentElement.lang=l;doc
 function start(){const n=$("playerName").value.trim();if(!n){$("playerName").focus();return}state.name=n;state.round=0;state.score=0;state.correct=0;renderRound();show("game")}
 function renderRound(){clearInterval(state.t);state.selected.clear();state.sec=30;const c=copy[lang],r=c.rounds[state.round];$("roundLabel").textContent=c.round+" "+(state.round+1)+" "+c.of+" 3";$("scenarioLabel").textContent=r.t;$("question").textContent=r.q;$("context").textContent=r.c;$("score").textContent=state.score;$("correctCount").textContent=state.correct;$("feedback").classList.add("hidden");$("submit").disabled=false;$("timer").textContent="00:30";$("bar").style.width="0%";$("fields").innerHTML="";r.o.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="field";b.innerHTML="<strong>"+k+"</strong><small>"+label+"</small>";b.addEventListener("click",()=>{state.selected.has(k)?state.selected.delete(k):state.selected.add(k);b.classList.toggle("selected")});$("fields").appendChild(b)});state.t=setInterval(()=>{state.sec--;$("timer").textContent="00:"+String(state.sec).padStart(2,"0");$("bar").style.width=((30-state.sec)/30*100)+"%";if(state.sec<=0){clearInterval(state.t);submitRound()}},1000)}
 function submitRound(){if($("submit").disabled)return;clearInterval(state.t);$("submit").disabled=true;const c=copy[lang],r=c.rounds[state.round],correctSet=new Set(r.o.filter(x=>x[2]===1).map(x=>x[0])),chosen=state.selected;const ok=chosen.size===correctSet.size&&[...correctSet].every(x=>chosen.has(x));const wrong=[...chosen].filter(x=>!correctSet.has(x)),missing=[...correctSet].filter(x=>!chosen.has(x));if(ok){const pts=100+state.sec*3;state.correct++;state.score+=pts;$("feedback").innerHTML="<strong class='green'>"+c.ok+"</strong><div class='sub'>+"+pts+" — "+c.ok2+"</div>"}else{$("feedback").innerHTML="<strong class='red'>"+c.bad+"</strong><div class='sub'>"+(wrong.length?c.wrong+wrong.join(", ")+" ":"")+(missing.length?c.missing+missing.join(", "):"")+"</div>"}$("feedback").classList.remove("hidden");$("score").textContent=state.score;$("correctCount").textContent=state.correct;setTimeout(()=>{state.round++;state.round<3?renderRound():finish()},1400)}
-function finish(){const c=copy[lang];$("finalName").textContent=state.name;$("finalScore").textContent=state.score;$("finalCorrect").textContent=state.correct+" / 3";$("finalTitle").textContent=state.correct===3?c.perfect:c.normal;$("finalSummary").textContent=c.summary;show("final")}
+function finish(){const c=copy[lang];const passed=state.correct===3;$("finalName").textContent=state.name;$("finalScore").textContent=state.score;$("finalCorrect").textContent=state.correct+" / 3";$("finalTitle").textContent=passed?c.perfect:c.normal;$("finalSummary").textContent=c.summary;const ps=$("passportStatus");ps.textContent=passed?c.verified:c.failed;ps.classList.toggle("green",passed);ps.classList.toggle("red",!passed);const pass=$("final").querySelector(".passport");pass.style.borderColor=passed?"var(--green)":"var(--red)";pass.style.background=passed?"#0D1514":"#171011";$("finalScore").classList.toggle("green",passed);$("finalScore").classList.toggle("red",!passed);show("final")}
 $("arBtn").addEventListener("click",()=>applyLang("ar"));$("enBtn").addEventListener("click",()=>applyLang("en"));$("start").addEventListener("click",start);$("submit").addEventListener("click",submitRound);$("again").addEventListener("click",()=>show("intro"));applyLang("ar");
 })();
 </script>
