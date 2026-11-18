@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B0C0F">
+<title>Trustera — من يحق له الوصول للبيانات؟</title>
+<style>
+:root{--graphite:#0B0C0F;--surface:#121419;--gold:#F5B83D;--green:#3DDBB4;--red:#FF5D5D;--sand:#F6F3EA;--muted:#A8ADB5;--line:#292D35}
+*{box-sizing:border-box}body{margin:0;background:var(--graphite);color:var(--sand);font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif}button{font:inherit}
+.wrap{max-width:880px;margin:auto;padding:24px 18px 56px}.brand{display:flex;align-items:center;gap:14px}.mark{width:64px;height:64px}
+.brand h1{font-size:30px;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.kicker{font:700 12px/1.4 ui-monospace,monospace;letter-spacing:.11em;text-transform:uppercase;color:var(--gold)}
+.hero{padding:46px 0 20px}.hero h2{font-size:clamp(38px,8vw,68px);line-height:.98;margin:10px 0 18px;max-width:760px}.hero p{font-size:18px;line-height:1.6;color:#c5c8ce;max-width:720px}
+.card{margin-top:20px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px}.hidden{display:none!important}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.primary,.secondary{border-radius:12px;padding:13px 18px;font-weight:800;cursor:pointer;min-height:46px}
+.primary{background:var(--gold);color:#17181C;border:0}.secondary{background:transparent;color:var(--sand);border:1px solid #404550}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px}.timer{font:700 16px ui-monospace,monospace;color:var(--gold)}
+.progress{height:7px;background:#20242B;border-radius:99px;overflow:hidden;margin-top:14px}.progress span{display:block;height:100%;background:var(--gold);width:0;transition:width .2s}
+.q{font-size:30px;font-weight:800;margin:24px 0 8px}.sub{color:#b8bcc3;line-height:1.5}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.field{padding:16px;text-align:right;background:#0E1014;color:var(--sand);border:1px solid #353A44;border-radius:14px;cursor:pointer;min-height:76px}
+.field strong{display:block;font:700 15px ui-monospace,monospace}.field small{display:block;color:#9DA2AA;margin-top:6px}.field.selected{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.panel{background:#0E1014;border:1px solid #30343D;border-radius:14px;padding:16px}.panel h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid #23262D;font:14px ui-monospace,monospace}.row:first-of-type{border-top:0}
+.gold{color:var(--gold)}.green{color:var(--green)}.red{color:var(--red)}
+.alert{margin:18px 0;padding:15px 16px;border-right:4px solid var(--red);background:#1A1113;border-radius:10px}
+.flow{margin-top:20px;display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;gap:12px}.node{padding:16px;background:#0E1014;border:1px solid #353A44;border-radius:14px;text-align:center}.policy{border-color:var(--gold)}
+.allow-line{height:3px;background:var(--green);position:relative}.allow-line:after{content:"";position:absolute;right:-1px;top:-5px;border-left:9px solid var(--green);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.block-line{margin-top:16px;height:3px;background:repeating-linear-gradient(to right,var(--red),var(--red) 8px,transparent 8px,transparent 15px)}
+.passport{margin-top:22px;padding:20px;border-radius:16px;background:#0D1514;border:1px solid var(--green)}.passport.fail{background:#171011;border-color:var(--red)}
+.status{font-size:38px;font-weight:900;margin:4px 0 10px}.metric{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid #2A2F35}.metric:first-of-type{border-top:0}
+.footer{margin-top:34px;padding-top:18px;border-top:1px solid #242830;color:#898F98;font-size:12px}
+@media(max-width:640px){.fields,.grid2{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.allow-line{width:3px;height:40px;margin:auto}.allow-line:after{right:-5px;top:auto;bottom:-1px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid var(--green);border-bottom:0}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<div class="brand">
+<svg class="mark" viewBox="0 0 64 64" aria-label="Trustera mark">
+<rect x="1" y="1" width="62" height="62" rx="16" fill="#121419"/>
+<path d="M12 18 C20 18 21 29 29 29" stroke="#F5B83D" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="12" cy="18" r="5" fill="#F5B83D"/>
+<path d="M12 46 C20 46 21 35 29 35" stroke="#FF5D5D" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="2 8"/>
+<circle cx="12" cy="46" r="5" fill="#FF5D5D"/>
+<rect x="27" y="24" width="18" height="18" rx="6" fill="#F5B83D"/>
+<path d="M45 33 H55" stroke="#3DDBB4" stroke-width="5" stroke-linecap="round"/>
+<circle cx="56" cy="33" r="5" fill="#3DDBB4"/>
+</svg>
+<div><h1>Trustera</h1><p>صلاحيات واضحة. أدلة قابلة للتتبع. لكل ربط.</p></div>
+</div>
+<section id="intro" class="hero">
+<div class="kicker">تحدي تفاعلي في 30 ثانية</div>
+<h2>من يحق له الوصول للبيانات؟</h2>
+<p>أنت الآن تحدد صلاحيات الوصول لشريك توصيل. اختر فقط البيانات التي يحتاجها فعلًا، وبعدها تتحقق Trustera هل الـ API التزم بالسياسة التي وضعتها أم لا.</p>
+<div class="actions"><button id="start" class="primary">ابدأ التحدي</button></div>
+</section>
+<section id="game" class="card hidden">
+<div class="top"><div class="kicker">الخطوة 1 · حدد السياسة</div><div id="timer" class="timer">00:30</div></div>
+<div class="progress"><span id="bar"></span></div>
+<div class="q">ما البيانات التي يحتاج شريك التوصيل للوصول إليها؟</div>
+<div class="sub">السيناريو: الشريك يحتاج فقط للمعلومات الضرورية لتوصيل الطلب المخصص له.</div>
+<div id="fields" class="fields"></div>
+<div class="actions"><button id="verify" class="primary">تحقق باستخدام Trustera</button><button id="reset" class="secondary">إعادة</button></div>
+</section>
+<section id="reveal" class="card hidden">
+<div class="kicker">الخطوة 2 · قارن السياسة بالسلوك الفعلي</div>
+<div class="q">أنت وضعت السياسة. هل التزم بها الـ API فعلًا؟</div>
+<div class="grid2">
+<div class="panel"><h3 class="gold">المسموح حسب سياستك</h3><div id="allowed"></div></div>
+<div class="panel"><h3 class="red">ما أعاده الـ API فعليًا</h3><div id="actual"></div></div>
+</div>
+<div class="alert"><strong>تم العثور على مخالفة.</strong> The API returned <span id="extra">0</span> حقل/حقول لم تسمح بها سياستك.</div>
+<div class="flow"><div class="node">واجهة المتجر API<br><span class="kicker">مالك البيانات</span></div><div class="allow-line"></div><div class="node policy">نقطة السياسة<br><span class="gold">Trustera تتحقق</span></div></div>
+<div class="block-line"></div>
+<p class="sub" style="font-size:13px">الخط الأحمر المتقطع يعني أن البيانات الممنوعة تم إيقافها قبل وصولها إلى الشريك.</p>
+<div class="passport fail">
+<div class="kicker">جواز ثقة التكامل</div><div class="status red">فشل التحقق</div>
+<div class="metric"><span>النتيجة</span><strong class="red">وصول غير مصرح للبيانات</strong></div>
+<div class="metric"><span>الأدلة</span><strong>تم توثيقها</strong></div>
+<div class="metric"><span>اختبارات السياسة</span><strong>نجح 3 من 4</strong></div>
+</div>
+<div class="actions"><button id="fix" class="primary">طبّق الإصلاح وأعد الاختبار</button></div>
+</section>
+<section id="final" class="card hidden">
+<div class="kicker">الخطوة 3 · إعادة الاختبار</div>
+<div class="q green">التكامل الآن يلتزم بالسياسة.</div>
+<div class="passport">
+<div class="kicker">جواز ثقة التكامل</div><div class="status green">تم التحقق</div>
+<div class="metric"><span>درجة الثقة</span><strong class="green">100 / 100</strong></div>
+<div class="metric"><span>اختبارات السياسة</span><strong class="green">نجح 4 من 4</strong></div>
+<div class="metric"><span>المشكلات المفتوحة</span><strong class="green">0</strong></div>
+<div class="metric"><span>الأدلة</span><strong>قابلة للتتبع</strong></div>
+</div>
+<div class="card" style="background:#0E1014">
+<div class="kicker">الفكرة في سطر واحد</div>
+<p style="font-size:23px;font-weight:800;margin:8px 0">الثقة لا تُفترض. بل يتم التحقق منها.</p>
+<p class="sub">تقارن Trustera ما يُسمح للطرف الثالث بالوصول إليه مع ما يعيده الـ API فعليًا، ثم توثق الأدلة وتعيد الاختبار بعد الإصلاح.</p>
+</div>
+<div class="actions"><button id="again" class="secondary">العب مرة أخرى</button></div>
+</section>
+<div class="footer">Trustera · SAIF 2026 · تحدٍ توعوي تفاعلي · سيناريو تجريبي فقط</div>
+</main>
+<script>
+(() => {
+const data=[["order_id","مطلوب لتحديد الطلب المخصص"],["delivery_address","مطلوب لتوصيل الطلب"],["delivery_status","مطلوب لتحديث حالة التوصيل"],["customer_phone","غير مطلوب في هذا السيناريو"],["national_id","بيانات حساسة — غير مطلوبة"],["private_record","بيانات حساسة — غير مطلوبة"]];
+const actual=["order_id","delivery_address","delivery_status","customer_phone","national_id","private_record"];
+const state={selected:new Set(),sec:30,t:null}; const $=id=>document.getElementById(id); const sections=["intro","game","reveal","final"];
+function show(id){sections.forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"});}
+function render(){$("fields").innerHTML="";data.forEach(([name,desc])=>{const b=document.createElement("button");b.type="button";b.className="field";b.innerHTML='<strong>'+name+'</strong><small>'+desc+'</small>';b.addEventListener("click",()=>{state.selected.has(name)?state.selected.delete(name):state.selected.add(name);b.classList.toggle("selected")});$("fields").appendChild(b);});}
+function start(){clearInterval(state.t);state.selected.clear();state.sec=30;render();$("timer").textContent="00:30";$("bar").style.width="0%";show("game");state.t=setInterval(()=>{state.sec--;$("timer").textContent="00:"+String(state.sec).padStart(2,"0");$("bar").style.width=((30-state.sec)/30*100)+"%";if(state.sec<=0){clearInterval(state.t);verify()}},1000);}
+function row(name,bad=false){return '<div class="row"><span>'+name+'</span><span class="'+(bad?'red':'green')+'">'+(bad?'مخالفة':'✓')+'</span></div>';}
+function verify(){clearInterval(state.t);const chosen=[...state.selected];$("allowed").innerHTML=(chosen.length?chosen:["لم يتم اختيار أي حقل"]).map(x=>row(x,false)).join("");$("actual").innerHTML=actual.map(x=>row(x,!state.selected.has(x))).join("");$("extra").textContent=actual.filter(x=>!state.selected.has(x)).length;show("reveal");}
+$("start").addEventListener("click",start);$("reset").addEventListener("click",start);$("verify").addEventListener("click",verify);$("fix").addEventListener("click",()=>show("final"));$("again").addEventListener("click",start);render();
+})();
+</script>
+</body>
+</html>
