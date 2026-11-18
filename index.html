@@ -29,6 +29,7 @@ html[dir="ltr"] .field{padding:16px 16px 16px 48px}
 .scoreline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}.chip{padding:8px 12px;border:1px solid #343944;border-radius:999px;background:#0E1014}
 .passport{margin-top:22px;padding:20px;border-radius:16px;background:#0D1514;border:1px solid var(--green)}.status{font-size:36px;font-weight:900}.metric{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid #2A2F35}.metric:first-of-type{border-top:0}
 .final-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.cta-note{margin-top:18px;padding:16px;border:1px solid #343944;border-radius:14px;background:#0E1014}
+.cta-link{display:inline-flex;align-items:center;margin-top:14px;text-decoration:none}
 .footer{margin-top:34px;padding-top:18px;border-top:1px solid #242830;color:#898F98;font-size:12px}
 .ltr-num{direction:ltr;unicode-bidi:embed;display:inline-block}
 @media(max-width:640px){
@@ -88,7 +89,7 @@ html[dir="ltr"] .field{padding:16px 16px 16px 48px}
 <div class="metric"><span id="rankMetric"></span><strong id="finalRank" class="ltr-num">—</strong></div>
 <div class="metric"><span id="playersMetric"></span><strong id="totalPlayers">—</strong></div>
 </div>
-<div class="cta-note"><strong id="ctaTitle"></strong><div id="ctaText" class="sub"></div></div>
+<div class="cta-note"><strong id="ctaTitle"></strong><div id="ctaText" class="sub"></div><a id="siteCta" class="primary cta-link" href="https://trustera-lpqw.onrender.com/" target="_blank" rel="noopener noreferrer"></a></div>
 <div class="final-actions"><button id="share" class="primary"></button><button id="again" class="secondary"></button></div>
 </section>
 
@@ -101,12 +102,12 @@ const copy={
 ar:{
 dir:"rtl",tag:"صلاحيات واضحة. أدلة قابلة للتتبع. لكل ربط.",introK:"3 جولات · تحدي سريع",title:"من يحق له الوصول للبيانات؟",
 intro:"اختر أقل قدر من البيانات التي يحتاجها كل طرف ثالث. كل إجابة صحيحة تعطيك نقاط، والسرعة تضيف نقاطًا إضافية.",
-name:"اكتب اسمك",nameErr:"اكتب اسمك أولًا عشان نبدأ التحدي.",start:"ابدأ التحدي",round:"الجولة",of:"من",submit:"تأكيد الإجابة",next:"التالي",finish:"عرض النتيجة",
+name:"اكتب اسمك",nameErr:"اكتب اسمك أولًا عشان نبدأ التحدي.",nameLen:"الاسم لازم يكون من حرفين إلى 24 حرفًا.",nameChars:"الاسم ما يقبل الرموز < > أو أسطر جديدة.",start:"ابدأ التحدي",round:"الجولة",of:"من",submit:"تأكيد الإجابة",next:"التالي",finish:"عرض النتيجة",
 score:"النقاط",correct:"الإجابات الصحيحة",ok:"إجابة صحيحة ✓",ok2:"اخترت فقط البيانات الضرورية.",bad:"تحتاج مراجعة بسيطة.",wrong:"اخترت بيانات غير مطلوبة: ",missing:"ونسيت بيانات مطلوبة: ",correctAnswer:"الإجابة الصحيحة",
 done:"انتهى التحدي",perfect:"ممتاز! طبّقت مبدأ أقل صلاحية بنجاح.",normal:"أداء جيد — وبعض الصلاحيات تحتاج مراجعة.",
 summary:"Trustera تتحقق من أن الطرف الثالث يحصل فقط على البيانات المصرح بها، وتكشف أي فرق بين السياسة والسلوك الفعلي.",
 passport:"جواز ثقة التكامل",verified:"تم التحقق",review:"يحتاج مراجعة",nameM:"اسم اللاعب",scoreM:"النتيجة",correctM:"الجولات الصحيحة",rankM:"مركزك",playersM:"إجمالي اللاعبين",
-saving:"جارٍ حفظ نتيجتك...",saveFail:"تعذر حفظ النتيجة الآن",again:"العب مرة أخرى",share:"شارك نتيجتك",ctaTitle:"وش الفكرة وراء Trustera؟",ctaText:"مو المهم إن الطرف الثالث يطلب بيانات فقط — المهم إننا نتحقق أن الـ API يعيد فقط ما تسمح به السياسة.",
+saving:"جارٍ حفظ نتيجتك...",saveFail:"تعذر حفظ النتيجة الآن",again:"العب مرة أخرى",share:"شارك نتيجتك",ctaTitle:"وش الفكرة وراء Trustera؟",ctaText:"مو المهم إن الطرف الثالث يطلب بيانات فقط — المهم إننا نتحقق أن الـ API يعيد فقط ما تسمح به السياسة.",siteCta:"اكتشف كيف تعالج Trustera هذه المشكلة",
 shareText:"أنهيت تحدي Trustera ونتيجتي {score} نقطة — {correct}/3 جولات صحيحة.",
 footer:"Trustera · SAIF 2026 · سيناريوهات تجريبية للتوعية فقط",
 rounds:[
@@ -117,12 +118,12 @@ rounds:[
 en:{
 dir:"ltr",tag:"Clear permissions. Traceable evidence. Every integration.",introK:"3 rounds · quick challenge",title:"Who gets the data?",
 intro:"Choose the minimum data each third party truly needs. Correct answers earn points, and speed adds a bonus.",
-name:"Enter your name",nameErr:"Enter your name before starting.",start:"Start challenge",round:"Round",of:"of",submit:"Submit answer",next:"Next",finish:"See result",
+name:"Enter your name",nameErr:"Enter your name before starting.",nameLen:"Your name must be 2 to 24 characters.",nameChars:"Your name cannot contain < > or line breaks.",start:"Start challenge",round:"Round",of:"of",submit:"Submit answer",next:"Next",finish:"See result",
 score:"Score",correct:"Correct rounds",ok:"Correct ✓",ok2:"You selected only the necessary data.",bad:"Needs a quick review.",wrong:"You selected unnecessary data: ",missing:"You missed required data: ",correctAnswer:"Correct answer",
 done:"Challenge complete",perfect:"Excellent! You applied least privilege correctly.",normal:"Good attempt — a few permissions need review.",
 summary:"Trustera verifies that a third party receives only authorized data and exposes any gap between policy and actual behavior.",
 passport:"Integration Passport",verified:"VERIFIED",review:"NEEDS REVIEW",nameM:"Player",scoreM:"Score",correctM:"Correct rounds",rankM:"Your rank",playersM:"Total players",
-saving:"Saving your result...",saveFail:"Could not save the result right now",again:"Play again",share:"Share result",ctaTitle:"What does Trustera prove?",ctaText:"It is not enough to define what a third party may request — Trustera verifies what the API actually returns against policy.",
+saving:"Saving your result...",saveFail:"Could not save the result right now",again:"Play again",share:"Share result",ctaTitle:"What does Trustera prove?",ctaText:"It is not enough to define what a third party may request — Trustera verifies what the API actually returns against policy.",siteCta:"See how Trustera solves this problem",
 shareText:"I finished the Trustera Challenge with {score} points — {correct}/3 correct rounds.",
 footer:"Trustera · SAIF 2026 · Synthetic awareness scenarios only",
 rounds:[
@@ -142,13 +143,14 @@ function applyLang(l){
  lang=l;const c=copy[l];document.documentElement.lang=l;document.documentElement.dir=c.dir;
  $("arBtn").classList.toggle("active",l==="ar");$("enBtn").classList.toggle("active",l==="en");
  $("tagline").textContent=c.tag;$("introKicker").textContent=c.introK;$("introTitle").textContent=c.title;$("introText").textContent=c.intro;$("playerName").placeholder=c.name;$("start").textContent=c.start;
- $("scoreLabel").textContent=c.score;$("correctLabel").textContent=c.correct;$("finalKicker").textContent=c.done;$("passportLabel").textContent=c.passport;$("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;$("footer").textContent=c.footer;
+ $("scoreLabel").textContent=c.score;$("correctLabel").textContent=c.correct;$("finalKicker").textContent=c.done;$("passportLabel").textContent=c.passport;$("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;$("siteCta").textContent=c.siteCta;$("footer").textContent=c.footer;
  if(!$("game").classList.contains("hidden"))refreshRoundLanguage();
  if(!$("final").classList.contains("hidden"))refreshFinalLanguage();
 }
 function start(){
- const n=$("playerName").value.trim();
- if(!n){$("nameError").textContent=copy[lang].nameErr;$("nameError").classList.remove("hidden");$("playerName").classList.add("invalid");$("playerName").focus();return}
+ const n=$("playerName").value.trim().replace(/\s+/g," ");
+ const err=!n?copy[lang].nameErr:[...n].length<2||[...n].length>24?copy[lang].nameLen:/[<>\u0000-\u001f\u007f\u202a-\u202e\u2066-\u2069]/.test(n)?copy[lang].nameChars:"";
+ if(err){$("nameError").textContent=err;$("nameError").classList.remove("hidden");$("playerName").classList.add("invalid");$("playerName").focus();return}
  $("nameError").classList.add("hidden");$("playerName").classList.remove("invalid");
  state.name=n;state.round=0;state.score=0;state.correct=0;state.saved=false;startRound();
 }
@@ -189,11 +191,11 @@ function renderFeedback(){
  const c=copy[lang],r=getRound(),correctKeys=r.o.filter(x=>x[2]===1).map(x=>x[0]),wrong=[...state.selected].filter(x=>!correctKeys.includes(x)),missing=correctKeys.filter(x=>!state.selected.has(x));
  if(state.lastOk){$("feedback").innerHTML="<strong class='green'>"+c.ok+"</strong><div class='sub'>+"+state.roundPts+" — "+c.ok2+"</div>"}
  else{
-  const label=k=>optionByKey(r,k)[1];
+  const label=k=>optionByKey(r,k)[1],sep=lang==="ar"?"، ":", ";
   $("feedback").innerHTML="<strong class='red'>"+c.bad+"</strong><div class='sub'>"+
-   (wrong.length?c.wrong+wrong.map(label).join("، ")+"<br>":"")+
-   (missing.length?c.missing+missing.map(label).join("، ")+"<br>":"")+
-   "<br><strong class='green'>"+c.correctAnswer+":</strong> "+correctKeys.map(label).join("، ")+"</div>";
+   (wrong.length?c.wrong+wrong.map(label).join(sep)+"<br>":"")+
+   (missing.length?c.missing+missing.map(label).join(sep)+"<br>":"")+
+   "<br><strong class='green'>"+c.correctAnswer+":</strong> "+correctKeys.map(label).join(sep)+"</div>";
  }
  $("feedback").classList.remove("hidden");
 }
@@ -214,7 +216,7 @@ async function saveResultAndRank(){
 function refreshFinalLanguage(){
  const c=copy[lang],passed=state.correct===3;
  $("finalKicker").textContent=c.done;$("finalTitle").textContent=passed?c.perfect:c.normal;$("passportLabel").textContent=c.passport;$("passportStatus").textContent=passed?c.verified:c.review;
- $("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;
+ $("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;$("siteCta").textContent=c.siteCta;
  if(state.saved)$("finalSummary").textContent=c.summary;
 }
 function finish(){
