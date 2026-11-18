@@ -2,48 +2,42 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B0C0F">
 <title>Trustera Challenge</title>
 <style>
 :root{--bg:#0B0C0F;--card:#121419;--gold:#F5B83D;--green:#3DDBB4;--red:#FF5D5D;--sand:#F6F3EA;--muted:#A8ADB5;--line:#292D35}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--sand);font-family:"Segoe UI",Tahoma,Arial,sans-serif}
-button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 56px}.brand{display:flex;align-items:center;gap:14px}.mark{width:62px;height:62px}.brand h1{margin:0;font-size:30px}.brand p{margin:4px 0 0;color:var(--muted)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--sand);font-family:"Segoe UI",Tahoma,Arial,sans-serif;overflow-x:hidden}
+button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 70px}.brand{display:flex;align-items:center;gap:14px}.mark{width:62px;height:62px;flex:none}.brand h1{margin:0;font-size:30px}.brand p{margin:4px 0 0;color:var(--muted)}
 .lang{margin-inline-start:auto;display:flex;gap:8px}.lang button{background:transparent;color:var(--sand);border:1px solid #444b55;border-radius:10px;padding:9px 12px;cursor:pointer}.lang .active{border-color:var(--gold);color:var(--gold)}
 .hero{padding:42px 0 18px}.hero h2{font-size:clamp(38px,8vw,64px);line-height:1.06;margin:10px 0 16px}.hero p{font-size:18px;line-height:1.7;color:#c5c8ce}
 .kicker{color:var(--gold);font-weight:800;font-size:12px}.card{margin-top:20px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:16px}.hidden{display:none!important}
-.namebox{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:22px}.namebox input{min-height:48px;background:#0E1014;color:var(--sand);border:1px solid #3A3F49;border-radius:12px;padding:0 14px}
-.primary,.secondary{border-radius:12px;padding:13px 18px;font-weight:800;cursor:pointer;min-height:46px}.primary{background:var(--gold);color:#17181C;border:0}.secondary{background:transparent;color:var(--sand);border:1px solid #404550}
-.top{display:flex;justify-content:space-between;gap:14px;align-items:center}.timer{color:var(--gold);font-weight:800}.progress{height:7px;background:#20242B;border-radius:99px;overflow:hidden;margin-top:14px}.progress span{display:block;height:100%;background:var(--gold);width:0}
+.namebox{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:22px}.namebox input{min-height:50px;background:#0E1014;color:var(--sand);border:1px solid #3A3F49;border-radius:12px;padding:0 14px}.namebox input.invalid{border-color:var(--red)}
+.form-error{color:var(--red);font-size:13px;margin-top:8px}
+.primary,.secondary{border-radius:12px;padding:13px 18px;font-weight:800;cursor:pointer;min-height:48px}.primary{background:var(--gold);color:#17181C;border:0}.secondary{background:transparent;color:var(--sand);border:1px solid #404550}
+.top{display:flex;justify-content:space-between;gap:14px;align-items:center}.timer{color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums}.progress{height:7px;background:#20242B;border-radius:99px;overflow:hidden;margin-top:14px}.progress span{display:block;height:100%;background:var(--gold);width:0}
 .q{font-size:30px;font-weight:800;margin:24px 0 8px}.sub{color:#b8bcc3;line-height:1.6}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-.field{padding:16px;text-align:inherit;background:#0E1014;color:var(--sand);border:1px solid #353A44;border-radius:14px;cursor:pointer;min-height:82px}.field strong{display:block;font-family:ui-monospace,monospace}.field small{display:block;color:#9DA2AA;margin-top:6px}.field.selected{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.feedback{margin-top:18px;padding:16px;border-radius:12px;background:#0E1014;border:1px solid #343944}.green{color:var(--green)}.red{color:var(--red)}
+.field{position:relative;padding:16px 48px 16px 16px;text-align:inherit;background:#0E1014;color:var(--sand);border:1px solid #353A44;border-radius:14px;cursor:pointer;min-height:86px;transition:.18s ease}
+html[dir="ltr"] .field{padding:16px 16px 16px 48px}
+.field:hover{border-color:#59606c}.field .label{display:block;font-weight:800;font-size:16px}.field .tech{display:block;color:#8E949D;margin-top:6px;font:12px ui-monospace,monospace;overflow-wrap:anywhere}
+.field .check{position:absolute;inset-inline-end:16px;top:50%;transform:translateY(-50%);width:22px;height:22px;border:1px solid #59606c;border-radius:6px;display:grid;place-items:center;color:#17181C;font-size:14px}
+.field.selected{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}.field.selected .check{background:var(--gold);border-color:var(--gold)}.field.selected .check:after{content:"✓"}
+.field.correct-answer{border-color:var(--green);background:#0D1715}.field.correct-answer .check{background:var(--green);border-color:var(--green)}.field.correct-answer .check:after{content:"✓"}
+.field.wrong-answer{border-color:var(--red);background:#1A1113}.field.wrong-answer .check{background:var(--red);border-color:var(--red);color:white}.field.wrong-answer .check:after{content:"×"}
+.field.locked{cursor:default}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.feedback{margin-top:18px;padding:16px;border-radius:12px;background:#0E1014;border:1px solid #343944}.feedback strong{display:block;margin-bottom:5px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
 .scoreline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}.chip{padding:8px 12px;border:1px solid #343944;border-radius:999px;background:#0E1014}
-.passport{margin-top:22px;padding:20px;border-radius:16px;background:#0D1514;border:1px solid var(--green)}.status{font-size:38px;font-weight:900}.metric{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid #2A2F35}
+.passport{margin-top:22px;padding:20px;border-radius:16px;background:#0D1514;border:1px solid var(--green)}.status{font-size:36px;font-weight:900}.metric{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid #2A2F35}.metric:first-of-type{border-top:0}
+.final-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.cta-note{margin-top:18px;padding:16px;border:1px solid #343944;border-radius:14px;background:#0E1014}
 .footer{margin-top:34px;padding-top:18px;border-top:1px solid #242830;color:#898F98;font-size:12px}
+.ltr-num{direction:ltr;unicode-bidi:embed;display:inline-block}
 @media(max-width:640px){
-    body{overflow-x:hidden}
-    .wrap{width:100%;max-width:100%;padding:16px 12px 36px}
-    .brand{align-items:flex-start;gap:10px;flex-wrap:wrap}
-    .mark{width:52px;height:52px}
-    .brand h1{font-size:26px}
-    .brand p{font-size:12px;max-width:230px}
-    .lang{width:100%;margin-inline-start:0;flex-direction:row}
-    .lang button{flex:1;min-height:44px}
-    .hero{padding-top:28px}
-    .hero h2{font-size:36px;line-height:1.15}
-    .hero p{font-size:16px}
-    .card{padding:16px;border-radius:14px}
-    .fields,.namebox{grid-template-columns:1fr}
-    .field{min-height:74px;width:100%;overflow-wrap:anywhere}
-    .field strong{font-size:13px;overflow-wrap:anywhere}
-    .q{font-size:24px;line-height:1.35}
-    .top{align-items:flex-start}
-    .actions{display:block}
-    .actions .primary,.actions .secondary,.namebox .primary{width:100%}
-    .metric{align-items:flex-start;flex-wrap:wrap}
-    .status{font-size:32px}
-  }
+ .wrap{width:100%;max-width:100%;padding:16px 12px 92px}.brand{align-items:flex-start;gap:10px;flex-wrap:wrap}.mark{width:52px;height:52px}.brand h1{font-size:26px}.brand p{font-size:12px;max-width:230px}
+ .lang{width:100%;margin-inline-start:0}.lang button{flex:1;min-height:44px}.hero{padding-top:28px}.hero h2{font-size:36px;line-height:1.15}.hero p{font-size:16px}.card{padding:16px;border-radius:14px}
+ .fields,.namebox{grid-template-columns:1fr}.q{font-size:24px;line-height:1.35}.top{align-items:flex-start}.field{min-height:78px}.metric{align-items:flex-start;flex-wrap:wrap}.status{font-size:30px}
+ .game-actions{position:sticky;bottom:0;z-index:10;margin:18px -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(18,20,25,.72),#121419 28%);backdrop-filter:blur(8px)}
+ .game-actions button{width:100%}.final-actions{display:grid;grid-template-columns:1fr}.final-actions button{width:100%}
+}
 </style>
 </head>
 <body>
@@ -67,31 +61,35 @@ button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 56
 <div id="introKicker" class="kicker"></div>
 <h2 id="introTitle"></h2>
 <p id="introText"></p>
-<div class="namebox"><input id="playerName" maxlength="24"><button id="start" class="primary"></button></div>
+<div class="namebox"><input id="playerName" maxlength="24" autocomplete="name"><button id="start" class="primary"></button></div>
+<div id="nameError" class="form-error hidden"></div>
 </section>
 
 <section id="game" class="card hidden">
-<div class="top"><div><div id="roundLabel"></div><div id="scenarioLabel" class="kicker"></div></div><div id="timer" class="timer">00:20</div></div>
+<div class="top"><div><div id="roundLabel"></div><div id="scenarioLabel" class="kicker"></div></div><div id="timer" class="timer">00:30</div></div>
 <div class="progress"><span id="bar"></span></div>
 <div id="question" class="q"></div>
 <div id="context" class="sub"></div>
 <div id="fields" class="fields"></div>
-<div class="actions"><button id="submit" class="primary"></button></div>
 <div id="feedback" class="feedback hidden"></div>
 <div class="scoreline"><div class="chip"><span id="scoreLabel"></span>: <strong id="score">0</strong></div><div class="chip"><span id="correctLabel"></span>: <strong id="correctCount">0</strong>/3</div></div>
+<div class="actions game-actions"><button id="submit" class="primary"></button><button id="next" class="primary hidden"></button></div>
 </section>
 
 <section id="final" class="card hidden">
 <div id="finalKicker" class="kicker"></div>
-<div id="finalTitle" class="q green"></div>
+<div id="finalTitle" class="q"></div>
 <div id="finalSummary" class="sub"></div>
-<div class="passport">
-<div id="passportLabel" class="kicker"></div><div id="passportStatus" class="status green">VERIFIED</div>
+<div class="passport" id="passport">
+<div id="passportLabel" class="kicker"></div><div id="passportStatus" class="status"></div>
 <div class="metric"><span id="nameMetric"></span><strong id="finalName"></strong></div>
-<div class="metric"><span id="scoreMetric"></span><strong id="finalScore" class="green"></strong></div>
-<div class="metric"><span id="correctMetric"></span><strong id="finalCorrect"></strong></div><div class="metric"><span id="rankMetric"></span><strong id="finalRank">—</strong></div><div class="metric"><span id="playersMetric"></span><strong id="totalPlayers">—</strong></div>
+<div class="metric"><span id="scoreMetric"></span><strong id="finalScore"></strong></div>
+<div class="metric"><span id="correctMetric"></span><strong id="finalCorrect" class="ltr-num"></strong></div>
+<div class="metric"><span id="rankMetric"></span><strong id="finalRank" class="ltr-num">—</strong></div>
+<div class="metric"><span id="playersMetric"></span><strong id="totalPlayers">—</strong></div>
 </div>
-<div class="actions"><button id="again" class="secondary"></button></div>
+<div class="cta-note"><strong id="ctaTitle"></strong><div id="ctaText" class="sub"></div></div>
+<div class="final-actions"><button id="share" class="primary"></button><button id="again" class="secondary"></button></div>
 </section>
 
 <div id="footer" class="footer"></div>
@@ -103,56 +101,138 @@ const copy={
 ar:{
 dir:"rtl",tag:"صلاحيات واضحة. أدلة قابلة للتتبع. لكل ربط.",introK:"3 جولات · تحدي سريع",title:"من يحق له الوصول للبيانات؟",
 intro:"اختر أقل قدر من البيانات التي يحتاجها كل طرف ثالث. كل إجابة صحيحة تعطيك نقاط، والسرعة تضيف نقاطًا إضافية.",
-name:"اكتب اسمك",start:"ابدأ التحدي",round:"الجولة",of:"من",submit:"تأكيد الإجابة",score:"النقاط",correct:"الإجابات الصحيحة",
-ok:"إجابة صحيحة ✓",ok2:"اخترت فقط البيانات الضرورية.",bad:"ليست الإجابة المثالية.",wrong:"اخترت بيانات غير مطلوبة: ",missing:"ونسيت بيانات مطلوبة: ",correctAnswer:"الإجابة الصحيحة: ",
-done:"انتهى التحدي",perfect:"ممتاز! طبّقت مبدأ أقل صلاحية بنجاح.",normal:"الآن تعرف الفرق بين الحاجة والصلاحية.",
+name:"اكتب اسمك",nameErr:"اكتب اسمك أولًا عشان نبدأ التحدي.",start:"ابدأ التحدي",round:"الجولة",of:"من",submit:"تأكيد الإجابة",next:"التالي",finish:"عرض النتيجة",
+score:"النقاط",correct:"الإجابات الصحيحة",ok:"إجابة صحيحة ✓",ok2:"اخترت فقط البيانات الضرورية.",bad:"تحتاج مراجعة بسيطة.",wrong:"اخترت بيانات غير مطلوبة: ",missing:"ونسيت بيانات مطلوبة: ",correctAnswer:"الإجابة الصحيحة",
+done:"انتهى التحدي",perfect:"ممتاز! طبّقت مبدأ أقل صلاحية بنجاح.",normal:"أداء جيد — وبعض الصلاحيات تحتاج مراجعة.",
 summary:"Trustera تتحقق من أن الطرف الثالث يحصل فقط على البيانات المصرح بها، وتكشف أي فرق بين السياسة والسلوك الفعلي.",
-passport:"جواز ثقة التكامل",verified:"تم التحقق",failed:"فشل التحقق",nameM:"اسم اللاعب",scoreM:"النتيجة",correctM:"الجولات الصحيحة",rankM:"مركزك",playersM:"إجمالي اللاعبين",saving:"جارٍ حفظ نتيجتك...",saveFail:"تعذر حفظ النتيجة الآن",again:"العب مرة أخرى",
+passport:"جواز ثقة التكامل",verified:"تم التحقق",review:"يحتاج مراجعة",nameM:"اسم اللاعب",scoreM:"النتيجة",correctM:"الجولات الصحيحة",rankM:"مركزك",playersM:"إجمالي اللاعبين",
+saving:"جارٍ حفظ نتيجتك...",saveFail:"تعذر حفظ النتيجة الآن",again:"العب مرة أخرى",share:"شارك نتيجتك",ctaTitle:"وش الفكرة وراء Trustera؟",ctaText:"مو المهم إن الطرف الثالث يطلب بيانات فقط — المهم إننا نتحقق أن الـ API يعيد فقط ما تسمح به السياسة.",
+shareText:"أنهيت تحدي Trustera ونتيجتي {score} نقطة — {correct}/3 جولات صحيحة.",
 footer:"Trustera · SAIF 2026 · سيناريوهات تجريبية للتوعية فقط",
 rounds:[
-{t:"شريك التوصيل",q:"ما البيانات التي يحتاجها شريك التوصيل؟",c:"يحتاج فقط لإيصال الطلب المخصص له وتحديث حالته.",o:[["order_id","رقم الطلب",1],["delivery_address","عنوان التوصيل",1],["delivery_status","حالة التوصيل",1],["customer_phone","رقم جوال العميل",0],["national_id","الهوية الوطنية",0],["private_record","سجل خاص",0]]},
+{t:"شريك التوصيل",q:"ما البيانات التي يحتاجها شريك التوصيل؟",c:"نفترض هنا أن التواصل مع العميل يتم عبر رقم وسيط داخل المنصة؛ لذلك لا يحتاج المندوب رقم جوال العميل الحقيقي.",o:[["order_id","رقم الطلب",1],["delivery_address","عنوان التوصيل",1],["delivery_status","حالة التوصيل",1],["customer_phone","رقم جوال العميل",0],["national_id","الهوية الوطنية",0],["private_record","سجل خاص",0]]},
 {t:"بوابة الدفع",q:"ما البيانات التي تحتاجها بوابة الدفع؟",c:"تحتاج تنفيذ عملية الدفع وربطها بالطلب، وليس الاطلاع على بيانات شخصية إضافية.",o:[["order_id","رقم الطلب",1],["payment_amount","قيمة العملية",1],["payment_status","حالة الدفع",1],["delivery_address","عنوان التوصيل",0],["national_id","الهوية الوطنية",0],["medical_record","سجل طبي",0]]},
 {t:"خدمة التحليلات",q:"ما البيانات المناسبة لخدمة التحليلات؟",c:"الهدف قياس الأداء العام بدون إرسال بيانات تعريف شخصية مباشرة.",o:[["anonymous_event_id","معرّف حدث مجهول",1],["page_view","مشاهدة الصفحة",1],["device_type","نوع الجهاز",1],["customer_name","اسم العميل",0],["customer_phone","رقم الجوال",0],["national_id","الهوية الوطنية",0]]}
 ]},
 en:{
 dir:"ltr",tag:"Clear permissions. Traceable evidence. Every integration.",introK:"3 rounds · quick challenge",title:"Who gets the data?",
 intro:"Choose the minimum data each third party truly needs. Correct answers earn points, and speed adds a bonus.",
-name:"Enter your name",start:"Start challenge",round:"Round",of:"of",submit:"Submit answer",score:"Score",correct:"Correct rounds",
-ok:"Correct ✓",ok2:"You selected only the necessary data.",bad:"Not quite.",wrong:"You selected unnecessary data: ",missing:"You missed required data: ",correctAnswer:"Correct answer: ",
-done:"Challenge complete",perfect:"Excellent! You applied least privilege correctly.",normal:"Now you know the difference between need and permission.",
+name:"Enter your name",nameErr:"Enter your name before starting.",start:"Start challenge",round:"Round",of:"of",submit:"Submit answer",next:"Next",finish:"See result",
+score:"Score",correct:"Correct rounds",ok:"Correct ✓",ok2:"You selected only the necessary data.",bad:"Needs a quick review.",wrong:"You selected unnecessary data: ",missing:"You missed required data: ",correctAnswer:"Correct answer",
+done:"Challenge complete",perfect:"Excellent! You applied least privilege correctly.",normal:"Good attempt — a few permissions need review.",
 summary:"Trustera verifies that a third party receives only authorized data and exposes any gap between policy and actual behavior.",
-passport:"Integration Passport",verified:"VERIFIED",failed:"FAILED",nameM:"Player",scoreM:"Score",correctM:"Correct rounds",rankM:"Your rank",playersM:"Total players",saving:"Saving your result...",saveFail:"Could not save the result right now",again:"Play again",
+passport:"Integration Passport",verified:"VERIFIED",review:"NEEDS REVIEW",nameM:"Player",scoreM:"Score",correctM:"Correct rounds",rankM:"Your rank",playersM:"Total players",
+saving:"Saving your result...",saveFail:"Could not save the result right now",again:"Play again",share:"Share result",ctaTitle:"What does Trustera prove?",ctaText:"It is not enough to define what a third party may request — Trustera verifies what the API actually returns against policy.",
+shareText:"I finished the Trustera Challenge with {score} points — {correct}/3 correct rounds.",
 footer:"Trustera · SAIF 2026 · Synthetic awareness scenarios only",
 rounds:[
-{t:"Delivery partner",q:"What data should the delivery partner access?",c:"It only needs enough information to deliver the assigned order and update its status.",o:[["order_id","Order ID",1],["delivery_address","Delivery address",1],["delivery_status","Delivery status",1],["customer_phone","Customer phone",0],["national_id","National ID",0],["private_record","Private record",0]]},
+{t:"Delivery partner",q:"What data should the delivery partner access?",c:"In this scenario, customer contact is handled through a masked in-app number, so the courier does not need the customer's real phone number.",o:[["order_id","Order ID",1],["delivery_address","Delivery address",1],["delivery_status","Delivery status",1],["customer_phone","Customer phone",0],["national_id","National ID",0],["private_record","Private record",0]]},
 {t:"Payment gateway",q:"What data does the payment gateway need?",c:"It needs to process payment and link it to the order, not access unrelated personal data.",o:[["order_id","Order ID",1],["payment_amount","Payment amount",1],["payment_status","Payment status",1],["delivery_address","Delivery address",0],["national_id","National ID",0],["medical_record","Medical record",0]]},
 {t:"Analytics service",q:"What data is appropriate for analytics?",c:"The goal is to measure overall performance without sending direct personal identifiers.",o:[["anonymous_event_id","Anonymous event ID",1],["page_view","Page view",1],["device_type","Device type",1],["customer_name","Customer name",0],["customer_phone","Customer phone",0],["national_id","National ID",0]]}
 ]}}
-const SUPABASE_URL="https://chckyurfaprkbuynnzom.supabase.co";const SUPABASE_KEY="sb_publishable_fllk4GJT1FrLSJYILKWyiw_Ig6Q305F";let lang="ar";const state={name:"",round:0,score:0,correct:0,selected:new Set(),sec:30,t:null};const $=id=>document.getElementById(id);
+const SUPABASE_URL="https://chckyurfaprkbuynnzom.supabase.co";
+const SUPABASE_KEY="sb_publishable_fllk4GJT1FrLSJYILKWyiw_Ig6Q305F";
+let lang="ar";
+const state={name:"",round:0,score:0,correct:0,selected:new Set(),sec:30,t:null,locked:false,order:[],lastOk:false,saved:false};
+const $=id=>document.getElementById(id);
+function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
 function show(id){["intro","game","final"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
-function applyLang(l){lang=l;const c=copy[l];document.documentElement.lang=l;document.documentElement.dir=c.dir;$("arBtn").classList.toggle("active",l==="ar");$("enBtn").classList.toggle("active",l==="en");$("tagline").textContent=c.tag;$("introKicker").textContent=c.introK;$("introTitle").textContent=c.title;$("introText").textContent=c.intro;$("playerName").placeholder=c.name;$("start").textContent=c.start;$("submit").textContent=c.submit;$("scoreLabel").textContent=c.score;$("correctLabel").textContent=c.correct;$("finalKicker").textContent=c.done;$("passportLabel").textContent=c.passport;$("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("footer").textContent=c.footer;if(!$("game").classList.contains("hidden"))renderRound()}
-function start(){const n=$("playerName").value.trim();if(!n){$("playerName").focus();return}state.name=n;state.round=0;state.score=0;state.correct=0;renderRound();show("game")}
-function renderRound(){clearInterval(state.t);state.selected.clear();state.sec=30;const c=copy[lang],r=c.rounds[state.round];$("roundLabel").textContent=c.round+" "+(state.round+1)+" "+c.of+" 3";$("scenarioLabel").textContent=r.t;$("question").textContent=r.q;$("context").textContent=r.c;$("score").textContent=state.score;$("correctCount").textContent=state.correct;$("feedback").classList.add("hidden");$("submit").disabled=false;$("timer").textContent="00:30";$("bar").style.width="0%";$("fields").innerHTML="";r.o.forEach(([k,label])=>{const b=document.createElement("button");b.type="button";b.className="field";b.innerHTML="<strong>"+k+"</strong><small>"+label+"</small>";b.addEventListener("click",()=>{state.selected.has(k)?state.selected.delete(k):state.selected.add(k);b.classList.toggle("selected")});$("fields").appendChild(b)});state.t=setInterval(()=>{state.sec--;$("timer").textContent="00:"+String(state.sec).padStart(2,"0");$("bar").style.width=((30-state.sec)/30*100)+"%";if(state.sec<=0){clearInterval(state.t);submitRound()}},1000)}
-function submitRound(){if($("submit").disabled)return;clearInterval(state.t);$("submit").disabled=true;const c=copy[lang],r=c.rounds[state.round],correctSet=new Set(r.o.filter(x=>x[2]===1).map(x=>x[0])),chosen=state.selected;const ok=chosen.size===correctSet.size&&[...correctSet].every(x=>chosen.has(x));const wrong=[...chosen].filter(x=>!correctSet.has(x)),missing=[...correctSet].filter(x=>!chosen.has(x));if(ok){const pts=100+state.sec*3;state.correct++;state.score+=pts;$("feedback").innerHTML="<strong class='green'>"+c.ok+"</strong><div class='sub'>+"+pts+" — "+c.ok2+"</div>"}else{$("feedback").innerHTML="<strong class='red'>"+c.bad+"</strong><div class='sub'>"+
-  (wrong.length?c.wrong+wrong.join(", ")+" ":"")+
-  (missing.length?c.missing+missing.join(", ")+" ":"")+
-  "<br><br><strong class='green'>"+c.correctAnswer+"</strong>"+[...correctSet].join(", ")+"</div>"}$("feedback").classList.remove("hidden");$("score").textContent=state.score;$("correctCount").textContent=state.correct;setTimeout(()=>{state.round++;state.round<3?renderRound():finish()},1400)}
-
-async function saveResultAndRank(){
-  const headers={"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"};
-  const payload={name:state.name,score:state.score,correct_rounds:state.correct};
-  const insert=await fetch(SUPABASE_URL+"/rest/v1/players",{method:"POST",headers,body:JSON.stringify(payload)});
-  if(!insert.ok) throw new Error("insert failed");
-  const read=await fetch(SUPABASE_URL+"/rest/v1/players?select=score",{headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}});
-  if(!read.ok) throw new Error("read failed");
-  const rows=await read.json();
-  const total=rows.length;
-  const rank=1+rows.filter(r=>Number(r.score)>Number(state.score)).length;
-  $("finalRank").textContent=rank+" / "+total;
-  $("totalPlayers").textContent=total;
+function fieldMarkup(k,label){return lang==="ar"?"<span class='label'>"+label+"</span><span class='tech'>"+k+"</span><span class='check'></span>":"<span class='label'>"+label+"</span><span class='tech'>"+k+"</span><span class='check'></span>"}
+function applyLang(l){
+ lang=l;const c=copy[l];document.documentElement.lang=l;document.documentElement.dir=c.dir;
+ $("arBtn").classList.toggle("active",l==="ar");$("enBtn").classList.toggle("active",l==="en");
+ $("tagline").textContent=c.tag;$("introKicker").textContent=c.introK;$("introTitle").textContent=c.title;$("introText").textContent=c.intro;$("playerName").placeholder=c.name;$("start").textContent=c.start;
+ $("scoreLabel").textContent=c.score;$("correctLabel").textContent=c.correct;$("finalKicker").textContent=c.done;$("passportLabel").textContent=c.passport;$("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;$("footer").textContent=c.footer;
+ if(!$("game").classList.contains("hidden"))refreshRoundLanguage();
+ if(!$("final").classList.contains("hidden"))refreshFinalLanguage();
 }
-function finish(){const c=copy[lang];const passed=state.correct===3;$("finalName").textContent=state.name;$("finalScore").textContent=state.score;$("finalCorrect").textContent=state.correct+" / 3";$("finalRank").textContent="…";$("totalPlayers").textContent="…";$("finalTitle").textContent=passed?c.perfect:c.normal;$("finalSummary").textContent=c.saving;const ps=$("passportStatus");ps.textContent=passed?c.verified:c.failed;ps.classList.toggle("green",passed);ps.classList.toggle("red",!passed);const pass=$("final").querySelector(".passport");pass.style.borderColor=passed?"var(--green)":"var(--red)";pass.style.background=passed?"#0D1514":"#171011";$("finalScore").classList.toggle("green",passed);$("finalScore").classList.toggle("red",!passed);show("final");saveResultAndRank().then(()=>{$("finalSummary").textContent=c.summary}).catch(()=>{$("finalSummary").textContent=c.saveFail+" — "+c.summary;$("finalRank").textContent="—";$("totalPlayers").textContent="—"})}
-$("arBtn").addEventListener("click",()=>applyLang("ar"));$("enBtn").addEventListener("click",()=>applyLang("en"));$("start").addEventListener("click",start);$("submit").addEventListener("click",submitRound);$("again").addEventListener("click",()=>show("intro"));applyLang("ar");
+function start(){
+ const n=$("playerName").value.trim();
+ if(!n){$("nameError").textContent=copy[lang].nameErr;$("nameError").classList.remove("hidden");$("playerName").classList.add("invalid");$("playerName").focus();return}
+ $("nameError").classList.add("hidden");$("playerName").classList.remove("invalid");
+ state.name=n;state.round=0;state.score=0;state.correct=0;state.saved=false;startRound();
+}
+function startRound(){
+ clearInterval(state.t);state.selected.clear();state.sec=30;state.locked=false;state.order=shuffle(copy.ar.rounds[state.round].o.map(x=>x[0]));
+ renderRound(true);show("game");window.scrollTo({top:0,behavior:"smooth"});
+ state.t=setInterval(()=>{state.sec--;$("timer").textContent="00:"+String(state.sec).padStart(2,"0");$("bar").style.width=((30-state.sec)/30*100)+"%";if(state.sec<=0){clearInterval(state.t);submitRound()}},1000);
+}
+function getRound(){return copy[lang].rounds[state.round]}
+function optionByKey(r,k){return r.o.find(x=>x[0]===k)}
+function renderRound(buildFields){
+ const c=copy[lang],r=getRound();
+ $("roundLabel").textContent=c.round+" "+(state.round+1)+" "+c.of+" 3";$("scenarioLabel").textContent=r.t;$("question").textContent=r.q;$("context").textContent=r.c;
+ $("score").textContent=state.score;$("correctCount").textContent=state.correct;$("timer").textContent="00:"+String(state.sec).padStart(2,"0");$("bar").style.width=((30-state.sec)/30*100)+"%";
+ $("submit").textContent=c.submit;$("next").textContent=state.round===2?c.finish:c.next;
+ if(buildFields){$("fields").innerHTML="";state.order.forEach(k=>{const item=optionByKey(r,k);const b=document.createElement("button");b.type="button";b.className="field";b.dataset.key=k;b.innerHTML=fieldMarkup(k,item[1]);b.addEventListener("click",()=>{if(state.locked)return;state.selected.has(k)?state.selected.delete(k):state.selected.add(k);b.classList.toggle("selected")});$("fields").appendChild(b)})}
+}
+function refreshRoundLanguage(){
+ const r=getRound(),c=copy[lang];$("roundLabel").textContent=c.round+" "+(state.round+1)+" "+c.of+" 3";$("scenarioLabel").textContent=r.t;$("question").textContent=r.q;$("context").textContent=r.c;$("submit").textContent=c.submit;$("next").textContent=state.round===2?c.finish:c.next;
+ [...$("fields").children].forEach(b=>{const item=optionByKey(r,b.dataset.key);b.innerHTML=fieldMarkup(b.dataset.key,item[1]);if(state.selected.has(b.dataset.key))b.classList.add("selected");if(state.locked){applyAnswerClass(b,b.dataset.key)}})
+ if(state.locked)renderFeedback();
+}
+function applyAnswerClass(b,key){
+ const correctSet=new Set(getRound().o.filter(x=>x[2]===1).map(x=>x[0]));
+ b.classList.add("locked");b.classList.remove("correct-answer","wrong-answer");
+ if(correctSet.has(key))b.classList.add("correct-answer");else if(state.selected.has(key))b.classList.add("wrong-answer");
+}
+function submitRound(){
+ if(state.locked)return;clearInterval(state.t);state.locked=true;
+ const r=getRound(),correctSet=new Set(r.o.filter(x=>x[2]===1).map(x=>x[0])),chosen=state.selected;
+ state.lastOk=chosen.size===correctSet.size&&[...correctSet].every(x=>chosen.has(x));
+ if(state.lastOk){const pts=100+state.sec*3;state.correct++;state.score+=pts;state.roundPts=pts}else state.roundPts=0;
+ [...$("fields").children].forEach(b=>applyAnswerClass(b,b.dataset.key));
+ renderFeedback();$("score").textContent=state.score;$("correctCount").textContent=state.correct;$("submit").classList.add("hidden");$("next").classList.remove("hidden");
+ window.scrollTo({top:$("feedback").getBoundingClientRect().top+window.scrollY-90,behavior:"smooth"});
+}
+function renderFeedback(){
+ const c=copy[lang],r=getRound(),correctKeys=r.o.filter(x=>x[2]===1).map(x=>x[0]),wrong=[...state.selected].filter(x=>!correctKeys.includes(x)),missing=correctKeys.filter(x=>!state.selected.has(x));
+ if(state.lastOk){$("feedback").innerHTML="<strong class='green'>"+c.ok+"</strong><div class='sub'>+"+state.roundPts+" — "+c.ok2+"</div>"}
+ else{
+  const label=k=>optionByKey(r,k)[1];
+  $("feedback").innerHTML="<strong class='red'>"+c.bad+"</strong><div class='sub'>"+
+   (wrong.length?c.wrong+wrong.map(label).join("، ")+"<br>":"")+
+   (missing.length?c.missing+missing.map(label).join("، ")+"<br>":"")+
+   "<br><strong class='green'>"+c.correctAnswer+":</strong> "+correctKeys.map(label).join("، ")+"</div>";
+ }
+ $("feedback").classList.remove("hidden");
+}
+function nextRound(){
+ if(!state.locked)return;
+ if(state.round<2){state.round++;$("feedback").classList.add("hidden");$("submit").classList.remove("hidden");$("next").classList.add("hidden");startRound()}else finish();
+}
+async function saveResultAndRank(){
+ const headers={"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"};
+ const payload={name:state.name,score:state.score,correct_rounds:state.correct};
+ const insert=await fetch(SUPABASE_URL+"/rest/v1/players",{method:"POST",headers,body:JSON.stringify(payload)});
+ if(!insert.ok) throw new Error("insert failed");
+ const read=await fetch(SUPABASE_URL+"/rest/v1/players?select=score",{headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}});
+ if(!read.ok) throw new Error("read failed");
+ const rows=await read.json(),total=rows.length,rank=1+rows.filter(r=>Number(r.score)>Number(state.score)).length;
+ $("finalRank").textContent=rank+" / "+total;$("totalPlayers").textContent=total;state.saved=true;
+}
+function refreshFinalLanguage(){
+ const c=copy[lang],passed=state.correct===3;
+ $("finalKicker").textContent=c.done;$("finalTitle").textContent=passed?c.perfect:c.normal;$("passportLabel").textContent=c.passport;$("passportStatus").textContent=passed?c.verified:c.review;
+ $("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;
+ if(state.saved)$("finalSummary").textContent=c.summary;
+}
+function finish(){
+ const c=copy[lang],passed=state.correct===3;clearInterval(state.t);show("final");
+ $("finalName").textContent=state.name;$("finalScore").textContent=state.score;$("finalCorrect").textContent=state.correct+" / 3";$("finalRank").textContent="…";$("totalPlayers").textContent="…";
+ const ps=$("passportStatus"),pass=$("passport");ps.textContent=passed?c.verified:c.review;ps.className="status "+(passed?"green":"gold");pass.style.borderColor=passed?"var(--green)":"var(--gold)";pass.style.background=passed?"#0D1514":"#17150D";
+ $("finalTitle").className="q "+(passed?"green":"gold");refreshFinalLanguage();$("finalSummary").textContent=c.saving;
+ saveResultAndRank().then(()=>{$("finalSummary").textContent=copy[lang].summary}).catch(()=>{$("finalSummary").textContent=copy[lang].saveFail+" — "+copy[lang].summary;$("finalRank").textContent="—";$("totalPlayers").textContent="—"});
+}
+function shareResult(){
+ const c=copy[lang];const text=c.shareText.replace("{score}",state.score).replace("{correct}",state.correct);
+ if(navigator.share){navigator.share({title:"Trustera Challenge",text,url:location.href}).catch(()=>{})}
+ else{navigator.clipboard&&navigator.clipboard.writeText(text+" "+location.href);alert(lang==="ar"?"تم نسخ النتيجة والرابط.":"Result and link copied.")}
+}
+$("arBtn").addEventListener("click",()=>applyLang("ar"));$("enBtn").addEventListener("click",()=>applyLang("en"));
+$("start").addEventListener("click",start);$("playerName").addEventListener("keydown",e=>{if(e.key==="Enter")start()});$("playerName").addEventListener("input",()=>{$("nameError").classList.add("hidden");$("playerName").classList.remove("invalid")});
+$("submit").addEventListener("click",submitRound);$("next").addEventListener("click",nextRound);$("again").addEventListener("click",()=>{show("intro");window.scrollTo({top:0,behavior:"smooth"})});$("share").addEventListener("click",shareResult);
+applyLang("ar");
 })();
 </script>
 </body>
