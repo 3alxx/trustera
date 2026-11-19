@@ -10,7 +10,7 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--sand);font-family:"Segoe UI",Tahoma,Arial,sans-serif;overflow-x:hidden}
 button,input{font:inherit}.wrap{max-width:900px;margin:auto;padding:24px 18px 70px}.brand{display:flex;align-items:center;gap:14px}.mark{width:62px;height:62px;flex:none}.brand h1{margin:0;font-size:30px}.brand p{margin:4px 0 0;color:var(--muted)}
 .lang{margin-inline-start:auto;display:flex;gap:8px}.lang button{background:transparent;color:var(--sand);border:1px solid #444b55;border-radius:10px;padding:9px 12px;cursor:pointer}.lang .active{border-color:var(--gold);color:var(--gold)}
-.hero{padding:42px 0 18px}.hero h2{font-size:clamp(38px,8vw,64px);line-height:1.06;margin:10px 0 16px}.hero p{font-size:18px;line-height:1.7;color:#c5c8ce}
+.hero{padding:42px 0 18px}.hero h2{font-size:clamp(38px,8vw,64px);line-height:1.06;margin:10px 0 16px}.hero p{font-size:18px;line-height:1.7;color:#c5c8ce}.howto-title{font-size:clamp(34px,7vw,56px);line-height:1.15;margin:10px 0 14px}.howto-lead{font-size:18px;line-height:1.75;color:#c5c8ce}.howto-steps{display:grid;gap:12px;margin:22px 0}.howto-step{display:flex;gap:13px;align-items:flex-start;padding:15px;background:#0E1014;border:1px solid #343944;border-radius:14px}.howto-icon{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;background:#171A20;border:1px solid #464C57;font-weight:900}.howto-step strong{display:block;margin-bottom:4px}.howto-note{margin:18px 0;padding:14px 16px;border-inline-start:3px solid var(--gold);background:#15140F;border-radius:10px;color:#d6d8dc;line-height:1.65}.howto-meta{color:var(--gold);font-weight:800;margin:10px 0 18px}
 .kicker{color:var(--gold);font-weight:800;font-size:12px}.card{margin-top:20px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:16px}.hidden{display:none!important}
 .namebox{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:22px}.namebox input{min-height:50px;background:#0E1014;color:var(--sand);border:1px solid #3A3F49;border-radius:12px;padding:0 14px}.namebox input.invalid{border-color:var(--red)}
 .form-error{color:var(--red);font-size:13px;margin-top:8px}
@@ -58,7 +58,23 @@ html[dir="ltr"] .field{padding:16px 16px 16px 48px}
 <div class="lang"><button id="arBtn" class="active">العربية</button><button id="enBtn">English</button></div>
 </div>
 
-<section id="intro" class="hero">
+<section id="howto" class="hero">
+<div id="howtoKicker" class="kicker"></div>
+<h2 id="howtoTitle" class="howto-title"></h2>
+<p id="howtoLead" class="howto-lead"></p>
+<div class="card">
+  <div class="howto-steps">
+    <div class="howto-step"><div class="howto-icon">1</div><div><strong id="step1Title"></strong><span id="step1Text" class="sub"></span></div></div>
+    <div class="howto-step"><div class="howto-icon">2</div><div><strong id="step2Title"></strong><span id="step2Text" class="sub"></span></div></div>
+    <div class="howto-step"><div class="howto-icon">3</div><div><strong id="step3Title"></strong><span id="step3Text" class="sub"></span></div></div>
+  </div>
+  <div id="howtoNote" class="howto-note"></div>
+  <div id="howtoMeta" class="howto-meta"></div>
+  <button id="howtoStart" class="primary"></button>
+</div>
+</section>
+
+<section id="intro" class="hero hidden">
 <div id="introKicker" class="kicker"></div>
 <h2 id="introTitle"></h2>
 <p id="introText"></p>
@@ -100,8 +116,15 @@ html[dir="ltr"] .field{padding:16px 16px 16px 48px}
 (()=>{
 const copy={
 ar:{
-dir:"rtl",tag:"صلاحيات واضحة. أدلة قابلة للتتبع. لكل ربط.",introK:"3 جولات · تحدي سريع",title:"من يحق له الوصول للبيانات؟",
-intro:"اختر أقل قدر من البيانات التي يحتاجها كل طرف ثالث. كل إجابة صحيحة تعطيك نقاط، والسرعة تضيف نقاطًا إضافية.",
+dir:"rtl",tag:"صلاحيات واضحة. أدلة قابلة للتتبع. لكل ربط.",
+howtoK:"قبل ما تبدأ",howtoTitle:"وش المطلوب منك في التحدي؟",howtoLead:"في كل جولة راح يظهر لك طرف ثالث مختلف. مهمتك تحدد البيانات اللي يحتاجها فعلًا عشان ينفذ مهمته — بدون ما تعطيه معلومات زيادة.",
+step1Title:"اقرأ السيناريو",step1Text:"اعرف وش وظيفة الطرف الثالث في هذي الجولة.",
+step2Title:"اختر البيانات الضرورية فقط",step2Text:"حدد الحقول اللي يحتاجها فعلًا، واترك البيانات الحساسة أو غير المرتبطة بالمهمة.",
+step3Title:"تحقق من اختيارك",step3Text:"اضغط تأكيد الإجابة وراح نوضح لك إذا الصلاحيات مناسبة أو فيها وصول أكثر من اللازم.",
+howtoNote:"الفكرة ببساطة: مو كل طرف ثالث يحتاج يشوف كل بيانات العميل. حاول تطبق مبدأ أقل صلاحية.",
+howtoMeta:"3 جولات · 30 ثانية لكل جولة",howtoStart:"فهمت — ابدأ التحدي",
+introK:"جاهز؟",title:"من يحق له الوصول للبيانات؟",
+intro:"اكتب اسمك وابدأ. اختر فقط البيانات التي يحتاجها كل طرف ثالث فعلًا.",
 name:"اكتب اسمك",nameErr:"اكتب اسمك أولًا عشان نبدأ التحدي.",nameLen:"الاسم لازم يكون من حرفين إلى 24 حرفًا.",nameChars:"الاسم ما يقبل الرموز < > أو أسطر جديدة.",start:"ابدأ التحدي",round:"الجولة",of:"من",submit:"تأكيد الإجابة",next:"التالي",finish:"عرض النتيجة",
 score:"النقاط",correct:"الإجابات الصحيحة",ok:"إجابة صحيحة ✓",ok2:"اخترت فقط البيانات الضرورية.",bad:"تحتاج مراجعة بسيطة.",wrong:"اخترت بيانات غير مطلوبة: ",missing:"ونسيت بيانات مطلوبة: ",correctAnswer:"الإجابة الصحيحة",
 done:"انتهى التحدي",perfect:"ممتاز! طبّقت مبدأ أقل صلاحية بنجاح.",normal:"أداء جيد — وبعض الصلاحيات تحتاج مراجعة.",
@@ -116,8 +139,15 @@ rounds:[
 {t:"خدمة التحليلات",q:"ما البيانات المناسبة لخدمة التحليلات؟",c:"الهدف قياس الأداء العام بدون إرسال بيانات تعريف شخصية مباشرة.",o:[["anonymous_event_id","معرّف حدث مجهول",1],["page_view","مشاهدة الصفحة",1],["device_type","نوع الجهاز",1],["customer_name","اسم العميل",0],["customer_phone","رقم الجوال",0],["national_id","الهوية الوطنية",0]]}
 ]},
 en:{
-dir:"ltr",tag:"Clear permissions. Traceable evidence. Every integration.",introK:"3 rounds · quick challenge",title:"Who gets the data?",
-intro:"Choose the minimum data each third party truly needs. Correct answers earn points, and speed adds a bonus.",
+dir:"ltr",tag:"Clear permissions. Traceable evidence. Every integration.",
+howtoK:"Before you start",howtoTitle:"What are you supposed to do?",howtoLead:"Each round shows a different third party. Your job is to decide which data it truly needs to do its job — and nothing more.",
+step1Title:"Read the scenario",step1Text:"Understand what the third party is responsible for in this round.",
+step2Title:"Select only necessary data",step2Text:"Choose the fields it actually needs and avoid sensitive or unrelated information.",
+step3Title:"Check your choice",step3Text:"Submit your answer and we’ll show whether the access is appropriate or broader than necessary.",
+howtoNote:"The idea is simple: a third party should not receive every piece of customer data. Apply least privilege.",
+howtoMeta:"3 rounds · 30 seconds each",howtoStart:"Got it — start challenge",
+introK:"Ready?",title:"Who gets the data?",
+intro:"Enter your name and begin. Choose only the data each third party truly needs.",
 name:"Enter your name",nameErr:"Enter your name before starting.",nameLen:"Your name must be 2 to 24 characters.",nameChars:"Your name cannot contain < > or line breaks.",start:"Start challenge",round:"Round",of:"of",submit:"Submit answer",next:"Next",finish:"See result",
 score:"Score",correct:"Correct rounds",ok:"Correct ✓",ok2:"You selected only the necessary data.",bad:"Needs a quick review.",wrong:"You selected unnecessary data: ",missing:"You missed required data: ",correctAnswer:"Correct answer",
 done:"Challenge complete",perfect:"Excellent! You applied least privilege correctly.",normal:"Good attempt — a few permissions need review.",
@@ -137,12 +167,12 @@ let lang="ar";
 const state={name:"",round:0,score:0,correct:0,selected:new Set(),sec:30,t:null,locked:false,order:[],lastOk:false,saved:false};
 const $=id=>document.getElementById(id);
 function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
-function show(id){["intro","game","final"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
+function show(id){["howto","intro","game","final"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0,behavior:"smooth"})}
 function fieldMarkup(k,label){return lang==="ar"?"<span class='label'>"+label+"</span><span class='tech'>"+k+"</span><span class='check'></span>":"<span class='label'>"+label+"</span><span class='tech'>"+k+"</span><span class='check'></span>"}
 function applyLang(l){
  lang=l;const c=copy[l];document.documentElement.lang=l;document.documentElement.dir=c.dir;
  $("arBtn").classList.toggle("active",l==="ar");$("enBtn").classList.toggle("active",l==="en");
- $("tagline").textContent=c.tag;$("introKicker").textContent=c.introK;$("introTitle").textContent=c.title;$("introText").textContent=c.intro;$("playerName").placeholder=c.name;$("start").textContent=c.start;
+ $("tagline").textContent=c.tag;$("howtoKicker").textContent=c.howtoK;$("howtoTitle").textContent=c.howtoTitle;$("howtoLead").textContent=c.howtoLead;$("step1Title").textContent=c.step1Title;$("step1Text").textContent=c.step1Text;$("step2Title").textContent=c.step2Title;$("step2Text").textContent=c.step2Text;$("step3Title").textContent=c.step3Title;$("step3Text").textContent=c.step3Text;$("howtoNote").textContent=c.howtoNote;$("howtoMeta").textContent=c.howtoMeta;$("howtoStart").textContent=c.howtoStart;$("introKicker").textContent=c.introK;$("introTitle").textContent=c.title;$("introText").textContent=c.intro;$("playerName").placeholder=c.name;$("start").textContent=c.start;
  $("scoreLabel").textContent=c.score;$("correctLabel").textContent=c.correct;$("finalKicker").textContent=c.done;$("passportLabel").textContent=c.passport;$("nameMetric").textContent=c.nameM;$("scoreMetric").textContent=c.scoreM;$("correctMetric").textContent=c.correctM;$("rankMetric").textContent=c.rankM;$("playersMetric").textContent=c.playersM;$("again").textContent=c.again;$("share").textContent=c.share;$("ctaTitle").textContent=c.ctaTitle;$("ctaText").textContent=c.ctaText;$("siteCta").textContent=c.siteCta;$("footer").textContent=c.footer;
  if(!$("game").classList.contains("hidden"))refreshRoundLanguage();
  if(!$("final").classList.contains("hidden"))refreshFinalLanguage();
@@ -232,9 +262,9 @@ function shareResult(){
  else{navigator.clipboard&&navigator.clipboard.writeText(text+" "+location.href);alert(lang==="ar"?"تم نسخ النتيجة والرابط.":"Result and link copied.")}
 }
 $("arBtn").addEventListener("click",()=>applyLang("ar"));$("enBtn").addEventListener("click",()=>applyLang("en"));
-$("start").addEventListener("click",start);$("playerName").addEventListener("keydown",e=>{if(e.key==="Enter")start()});$("playerName").addEventListener("input",()=>{$("nameError").classList.add("hidden");$("playerName").classList.remove("invalid")});
+$("howtoStart").addEventListener("click",()=>show("intro"));$("start").addEventListener("click",start);$("playerName").addEventListener("keydown",e=>{if(e.key==="Enter")start()});$("playerName").addEventListener("input",()=>{$("nameError").classList.add("hidden");$("playerName").classList.remove("invalid")});
 $("submit").addEventListener("click",submitRound);$("next").addEventListener("click",nextRound);$("again").addEventListener("click",()=>{show("intro");window.scrollTo({top:0,behavior:"smooth"})});$("share").addEventListener("click",shareResult);
-applyLang("ar");
+applyLang("ar");show("howto");
 })();
 </script>
 </body>
